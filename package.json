@@ -1,0 +1,46 @@
+{
+  "name": "brandomica-mcp-server",
+  "version": "1.0.3",
+  "description": "MCP server for Brandomica Lab — safety-first brand name verification across domains, social handles, trademarks, app stores, and SaaS channels",
+  "mcpName": "io.github.BRNDMK/brandomica-mcp-server",
+  "type": "module",
+  "homepage": "https://www.brandomica.com/mcp-server",
+  "author": "Brandomica Lab <hello@brandomica.com> (https://www.brandomica.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BRNDMK/brandomica-mcp-server"
+  },
+  "bugs": {
+    "url": "https://github.com/BRNDMK/brandomica-mcp-server/issues"
+  },
+  "bin": {
+    "brandomica-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "brandomica",
+    "brand",
+    "brand-safety",
+    "domain",
+    "trademark",
+    "naming",
+    "ai-agent"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.BRNDMK/brandomica-mcp-server",
+  "title": "Brandomica Lab",
+  "description": "Safety-first brand name verification across domains, social handles, trademarks, app stores, and SaaS channels. Returns structured JSON with availability score, safety assessment, and filing readiness.",
+  "repository": {
+    "url": "https://github.com/BRNDMK/brandomica-mcp-server",
+    "source": "github"
+  },
+  "version": "1.0.3",
+  "websiteUrl": "https://www.brandomica.com",
+  "icons": [
+    {
+      "src": "https://www.brandomica.com/icon-512.png",
+      "type": "image/png"
+    },
+    {
+      "src": "https://www.brandomica.com/favicon.svg",
+      "type": "image/svg+xml"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "brandomica-mcp-server",
+      "version": "1.0.3",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://www.brandomica.com/mcp"
+    }
+  ]
+}

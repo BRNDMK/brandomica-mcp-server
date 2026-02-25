@@ -1,0 +1,15 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      apiUrl:
+        type: string
+        description: "Custom Brandomica Lab API URL (defaults to https://www.brandomica.com)"
+    required: []
+  commandFunction: |
+    (config) => ({
+      command: 'npx',
+      args: ['brandomica-mcp-server'],
+      env: config.apiUrl ? { BRANDOMICA_API_URL: config.apiUrl } : {}
+    })
