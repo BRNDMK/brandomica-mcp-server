@@ -68,9 +68,9 @@ To point at a local dev server or custom deployment:
 | `brandomica_check_appstores` | App Store and Google Play search |
 | `brandomica_check_google` | Web presence — Google Search competitor overlap detection |
 | `brandomica_check_saas` | Package registry & SaaS availability (npm, PyPI, crates.io, RubyGems, NuGet, Homebrew, Docker Hub, ProductHunt) |
-| `brandomica_batch_check` | Check 2-50 brand names in one call, sorted by score |
+| `brandomica_batch_check` | Check 2-10 brand names in one call, sorted by score |
 
-All tools accept a `brand_name` parameter (lowercase letters, numbers, hyphens). `brandomica_check_all`, `brandomica_assess_safety`, and `brandomica_filing_readiness` also accept an optional `mode` parameter (`quick` or `full`). `brandomica_compare_brands` accepts a `brand_names` array (2-5). `brandomica_batch_check` accepts a `brand_names` array (2-50) and an optional `mode` parameter (`quick` or `full`).
+All tools accept a `brand_name` parameter (lowercase letters, numbers, hyphens). `brandomica_check_all`, `brandomica_assess_safety`, and `brandomica_filing_readiness` also accept an optional `mode` parameter (`quick` or `full`). `brandomica_compare_brands` accepts a `brand_names` array (2-5). `brandomica_batch_check` accepts a `brand_names` array (2-10) and an optional `mode` parameter (`quick` or `full`).
 
 ## Examples
 
@@ -98,8 +98,7 @@ Claude calls `brandomica_compare_brands` with all three names. Each candidate ge
 ## Development
 
 ```bash
-git clone https://github.com/BRNDMK/brandomica-mcp-server.git
-cd brandomica-mcp-server
+cd mcp-server
 npm install
 npm run build
 node dist/index.js
@@ -111,10 +110,67 @@ Test with MCP Inspector:
 npx @modelcontextprotocol/inspector node dist/index.js
 ```
 
+## Troubleshooting
+
+### "Tools not appearing" in Claude Desktop
+
+- Verify your config file path:
+  - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+  - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+- Validate JSON syntax (trailing commas, missing quotes)
+- Restart Claude Desktop after editing config
+- Check that `npx brandomica-mcp-server` runs without errors in your terminal
+
+### "Tools not appearing" in Claude Code
+
+```bash
+# Verify the server is registered
+claude mcp list
+
+# Re-add if missing
+claude mcp add brandomica -- npx brandomica-mcp-server
+```
+
+### npx hangs or times out
+
+- Clear the npx cache: `npx clear-npx-cache` then retry
+- Install globally instead: `npm install -g brandomica-mcp-server` then use `brandomica-mcp-server` as the command (instead of `npx brandomica-mcp-server`)
+- Check network connectivity: `npm ping`
+
+### Tool returns an error or empty results
+
+- **Rate limited (429):** The remote endpoint allows 30 requests/minute. Wait 60 seconds and retry.
+- **Timeout:** Some checks (domains, trademarks) call external APIs. Transient failures resolve on retry.
+- **`null` social handles:** `null` means the platform wasn't indexed by the search provider — it does not mean the handle is available or taken. Only `true`/`false` is definitive.
+
+### Remote endpoint (HTTPS) not responding
+
+- Verify the URL: `https://www.brandomica.com/mcp`
+- Check service status: `https://www.brandomica.com/status`
+- The remote endpoint uses streamable HTTP transport — ensure your MCP client supports it
+
+### Using a custom API URL
+
+Set `BRANDOMICA_API_URL` to point at a local dev server or custom deployment:
+
+```bash
+BRANDOMICA_API_URL=http://localhost:3000 npx brandomica-mcp-server
+```
+
+### Debugging with MCP Inspector
+
+```bash
+npx @modelcontextprotocol/inspector npx brandomica-mcp-server
+```
+
+Opens a browser UI where you can call each tool interactively and inspect JSON responses.
+
 ## Support
 
 - [GitHub Issues](https://github.com/BRNDMK/brandomica-mcp-server/issues) — bug reports, feature requests
 - Email: [support@brandomica.com](mailto:support@brandomica.com)
+- Security vulnerabilities: [security@brandomica.com](mailto:security@brandomica.com) (private reports only)
+- Security policy: see [`SECURITY.md`](https://github.com/BRNDMK/Brandomica/blob/main/SECURITY.md) and [`/.well-known/security.txt`](https://www.brandomica.com/.well-known/security.txt)
 
 ## License
 
