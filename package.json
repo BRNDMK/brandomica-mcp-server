@@ -1,6 +1,6 @@
 {
   "name": "brandomica-mcp-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "MCP server for Brandomica Lab — safety-first brand name verification across domains, social handles, trademarks, app stores, and SaaS channels",
   "mcpName": "io.github.BRNDMK/brandomica-mcp-server",
   "type": "module",
