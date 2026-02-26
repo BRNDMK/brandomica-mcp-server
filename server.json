@@ -7,7 +7,7 @@
     "url": "https://github.com/BRNDMK/brandomica-mcp-server",
     "source": "github"
   },
-  "version": "1.0.3",
+  "version": "1.0.5",
   "websiteUrl": "https://www.brandomica.com",
   "icons": [
     {
@@ -23,7 +23,7 @@
     {
       "registryType": "npm",
       "identifier": "brandomica-mcp-server",
-      "version": "1.0.3",
+      "version": "1.0.5",
       "transport": {
         "type": "stdio"
       }
