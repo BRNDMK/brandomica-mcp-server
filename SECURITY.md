@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in Brandomica Lab (website, API, MCP server, or CLI), please report it privately.
+If you discover a security vulnerability in the Brandomica MCP server, please report it privately.
 
 - Email: `security@brandomica.com`
 - Fallback: `support@brandomica.com`
@@ -10,7 +10,7 @@ If you discover a security vulnerability in Brandomica Lab (website, API, MCP se
 
 Please include:
 
-- Affected URL, endpoint, package, or feature
+- Affected package version and configuration
 - Steps to reproduce
 - Expected vs actual behavior
 - Impact assessment (if known)
@@ -30,16 +30,15 @@ Response times may vary based on severity and reproducibility.
 
 This policy covers:
 
-- `https://www.brandomica.com`
-- Brandomica REST API endpoints
-- Brandomica MCP endpoints / MCP server packages
-- Brandomica CLI packages
+- The `brandomica-mcp-server` npm package
+- The remote MCP endpoint at `https://www.brandomica.com/mcp`
+- Tool handlers and their interactions with the Brandomica API
 
-Out of scope (unless they directly impact Brandomica):
+Out of scope (unless they directly impact this package):
 
 - Third-party services and APIs used by Brandomica
 - Issues requiring physical access to user devices
-- Spam, social engineering, or phishing reports unrelated to Brandomica systems
+- The Brandomica website UI (report those via the [main security policy](https://github.com/BRNDMK/Brandomica/blob/main/SECURITY.md))
 
 ## Safe Harbor (Good-Faith Research)
 
