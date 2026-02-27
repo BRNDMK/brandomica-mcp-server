@@ -1,8 +1,14 @@
 #!/usr/bin/env node
 
+import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const pkg = JSON.parse(readFileSync(join(__dirname, "..", "package.json"), "utf8"));
 
 const API_BASE =
   process.env.BRANDOMICA_API_URL || "https://www.brandomica.com";
@@ -10,7 +16,7 @@ const API_BASE =
 const server = new McpServer(
   {
     name: "brandomica-mcp-server",
-    version: "1.0.3",
+    version: pkg.version,
   },
   {
     instructions:
@@ -23,32 +29,47 @@ const server = new McpServer(
   },
 );
 
+const FETCH_TIMEOUT_MS = 30_000;
+
 async function fetchApi(endpoint: string, name: string, extra?: Record<string, string>): Promise<unknown> {
   const params = new URLSearchParams({ name });
   if (extra) {
     for (const [k, v] of Object.entries(extra)) params.set(k, v);
   }
   const url = `${API_BASE}/api/${endpoint}?${params.toString()}`;
-  const res = await fetch(url);
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`Brandomica API error ${res.status}: ${body}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(`Brandomica API error ${res.status}: ${body}`);
+    }
+    return res.json();
+  } finally {
+    clearTimeout(timeout);
   }
-  return res.json();
 }
 
 async function fetchApiPost(endpoint: string, body: unknown): Promise<unknown> {
   const url = `${API_BASE}/api/${endpoint}`;
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`Brandomica API error ${res.status}: ${text}`);
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(`Brandomica API error ${res.status}: ${text}`);
+    }
+    return res.json();
+  } finally {
+    clearTimeout(timeout);
   }
-  return res.json();
 }
 
 // --- Tool: check_all ---
