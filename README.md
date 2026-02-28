@@ -165,6 +165,15 @@ npx @modelcontextprotocol/inspector npx brandomica-mcp-server
 
 Opens a browser UI where you can call each tool interactively and inspect JSON responses.
 
+## Privacy Policy
+
+This server connects to the Brandomica Lab API (`brandomica.com`) to perform brand name checks. See our full privacy policy: [https://www.brandomica.com/privacy](https://www.brandomica.com/privacy)
+
+- No user accounts or authentication required
+- Query data cached in-memory for 5–30 minutes, then discarded
+- No personal data collected, stored, or shared
+- All checks use public APIs and registries
+
 ## Support
 
 - [GitHub Issues](https://github.com/BRNDMK/brandomica-mcp-server/issues) — bug reports, feature requests

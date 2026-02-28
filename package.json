@@ -17,7 +17,8 @@
     "brandomica-mcp-server": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "manifest.json"
   ],
   "scripts": {
     "build": "tsc",
