@@ -475,7 +475,7 @@ server.registerTool(
   {
     title: "Trademark Search",
     description:
-      "Check trademark registries for existing registrations of a brand name. USPTO uses Turso (hosted SQLite FTS5) as the primary provider with local bulk index as legacy fallback; EUIPO returns a manual search link.",
+      "Check trademark registries for existing registrations of a brand name. USPTO uses Turso (hosted SQLite FTS5) as the primary provider with local bulk index as legacy fallback; EUIPO uses Trademark Search API (OAuth2) with manual search link fallback.",
     inputSchema: z.object(brandNameInput).strict(),
     annotations: toolAnnotations,
   },
