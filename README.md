@@ -35,6 +35,27 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
 }
 ```
 
+### OpenClaw
+
+Add to your OpenClaw config (`openclaw.json`):
+
+```json
+{
+  "mcpServers": {
+    "brandomica": {
+      "command": "npx",
+      "args": ["brandomica-mcp-server"]
+    }
+  }
+}
+```
+
+Or install the skill from ClaWHub:
+
+```bash
+clawhub install brandomica
+```
+
 ### Custom API URL
 
 To point at a local dev server or custom deployment:
