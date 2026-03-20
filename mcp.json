@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "brandomica": {
+      "command": "npx",
+      "args": ["-y", "brandomica-mcp-server"]
+    }
+  }
+}
