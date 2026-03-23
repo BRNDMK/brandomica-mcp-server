@@ -4,6 +4,8 @@ An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server for c
 
 Powered by [Brandomica Lab](https://www.brandomica.com).
 
+[![brandomica-mcp-server MCP server](https://glama.ai/mcp/servers/BRNDMK/brandomica-mcp-server/badges/card.svg)](https://glama.ai/mcp/servers/BRNDMK/brandomica-mcp-server)
+
 ## Installation
 
 ### Remote (no install)
