@@ -1,0 +1,9 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/connector.json",
+  "description": "Stdio-based MCP server with 12 tools for brand name availability and safety checks. Returns structured JSON for domains (with pricing), social handles, USPTO/EUIPO trademarks, app stores, package registries, safety scoring, batch comparison, and filing readiness. Requires Node.js 18+.",
+  "maintainers": [
+    {
+      "email": "tech@brandomica.com"
+    }
+  ]
+}
