@@ -1,5 +1,7 @@
 # Brandomica Lab MCP Server
 
+[![brandomica-mcp-server MCP server](https://glama.ai/mcp/servers/BRNDMK/brandomica-mcp-server/badges/score.svg)](https://glama.ai/mcp/servers/BRNDMK/brandomica-mcp-server)
+
 An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server for checking brand name availability across domains, social handles, trademarks, app stores, and SaaS channels.
 
 Powered by [Brandomica Lab](https://www.brandomica.com).
