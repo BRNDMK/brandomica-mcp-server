@@ -1,6 +1,7 @@
 # Brandomica Lab MCP Server
 
 [![brandomica-mcp-server MCP server](https://glama.ai/mcp/servers/BRNDMK/brandomica-mcp-server/badges/score.svg)](https://glama.ai/mcp/servers/BRNDMK/brandomica-mcp-server)
+[![Install in Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](cursor://anysphere.cursor-deeplink/mcp/install?name=brandomica&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImJyYW5kb21pY2EtbWNwLXNlcnZlciJdfQ%3D%3D)
 
 An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server for checking brand name availability across domains, social handles, trademarks, app stores, and SaaS channels.
 
@@ -117,6 +118,14 @@ Claude uses a three-step workflow:
 > "I'm choosing between 'nexlayer', 'buildkraft', and 'codelaunch' for a developer tool. Compare all three and recommend the safest option."
 
 Claude calls `brandomica_compare_brands` with all three names. Each candidate gets a full availability score and safety assessment. The response includes results in request order plus a recommendation highlighting the highest-scoring candidate.
+
+## Auto-invoke Rule
+
+Add this to your project's `CLAUDE.md` to auto-check brand names during naming sessions:
+
+```
+When brainstorming or suggesting product names, brand names, or startup names, always run brandomica_assess_safety on each candidate before recommending. If any show medium or high risk, follow up with brandomica_filing_readiness.
+```
 
 ## Development
 
