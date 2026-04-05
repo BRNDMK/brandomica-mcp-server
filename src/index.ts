@@ -207,101 +207,8 @@ interface CompareResponse {
   recommendation: string | null;
 }
 
-function formatDomains(data: { results: DomainResult[] }): string {
-  const lines: string[] = ["## Domain Availability"];
-  for (const d of data.results) {
-    const status = d.available ? "Available" : "Taken";
-    let price = "";
-    if (d.available && d.purchasePrice != null && d.renewalPrice != null) {
-      const minYears = d.minimumRegistrationYears ?? 1;
-      const dueToday = d.purchasePrice + d.renewalPrice * Math.max(0, minYears - 1);
-      const tco3 = d.purchasePrice + d.renewalPrice * 2;
-      const upfrontNote =
-        minYears > 1 ? `, due today $${dueToday} (${minYears}y minimum)` : "";
-      price = ` — year 1 $${d.purchasePrice}, renewal $${d.renewalPrice}/yr, 3Y TCO $${tco3}${upfrontNote}`;
-    }
-    const fallback = d.provider === "WhoisXML" ? " [WhoisXML fallback]" : "";
-    lines.push(`- ${d.domain}: ${status}${price}${fallback}`);
-  }
-  return lines.join("\n");
-}
-
-function formatSocial(data: { results: SocialResult[] }): string {
-  const lines: string[] = ["## Social Handle Availability"];
-  for (const s of data.results) {
-    const status =
-      s.available === true
-        ? "Available"
-        : s.available === false
-          ? "Taken"
-          : "Unknown (check manually)";
-    lines.push(`- ${s.platform}: ${status} — ${s.url}`);
-  }
-  return lines.join("\n");
-}
-
-function formatTrademarks(data: { results: TrademarkResult[] }): string {
-  const lines: string[] = ["## Trademark Search"];
-  for (const t of data.results) {
-    const status =
-      t.available === true
-        ? "Clear"
-        : t.available === false
-          ? `Found (${t.count} results)`
-          : "Check manually";
-    const via = t.provider ? ` [via ${t.provider}]` : "";
-    lines.push(`- ${t.source}: ${status}${via} — ${t.url}`);
-  }
-  return lines.join("\n");
-}
-
-function formatAppStores(data: { results: AppStoreResult[] }): string {
-  const lines: string[] = ["## App Store Search"];
-  for (const a of data.results) {
-    const status =
-      a.found === true
-        ? `Found (${a.results?.join(", ") || "matches"})`
-        : a.found === false
-          ? "Clear"
-          : "Unknown (check manually)";
-    const url = a.url ? ` — ${a.url}` : "";
-    lines.push(`- ${a.platform}: ${status}${url}`);
-  }
-  return lines.join("\n");
-}
-
-function formatSaas(data: { results: SaasResult[] }): string {
-  const lines: string[] = ["## Package Registries & SaaS"];
-  for (const s of data.results) {
-    const status =
-      s.available === true
-        ? "Available"
-        : s.available === false
-          ? "Taken"
-          : "Unknown (check manually)";
-    lines.push(`- ${s.platform}: ${status} — ${s.url}`);
-  }
-  return lines.join("\n");
-}
-
-function formatGoogle(data: { results: GoogleSearchResult[] }): string {
-  const lines: string[] = ["## Web Presence (Google Search)"];
-  for (const g of data.results) {
-    const status =
-      g.found === true
-        ? `Competitors found${g.resultCount ? ` (${g.resultCount} results)` : ""}`
-        : g.found === false
-          ? "No competitors found"
-          : "Unknown (check manually)";
-    const topHits =
-      g.found === true && g.topResults?.length
-        ? ` — Top: ${g.topResults.map((r) => r.title).join(", ")}`
-        : "";
-    const kg = g.hasKnowledgeGraph ? " [Knowledge Graph]" : "";
-    lines.push(`- ${g.platform}: ${status}${kg}${topHits} — ${g.url}`);
-  }
-  return lines.join("\n");
-}
+// All single-check tools return raw JSON from the API.
+// Formatting is handled by the LLM, not the server.
 
 // --- Register tools ---
 
@@ -446,7 +353,7 @@ server.registerTool(
       results: DomainResult[];
     };
     return {
-      content: [{ type: "text" as const, text: formatDomains(data) }],
+      content: [{ type: "text" as const, text: JSON.stringify(data) }],
     };
   }
 );
@@ -465,7 +372,7 @@ server.registerTool(
       results: SocialResult[];
     };
     return {
-      content: [{ type: "text" as const, text: formatSocial(data) }],
+      content: [{ type: "text" as const, text: JSON.stringify(data) }],
     };
   }
 );
@@ -484,7 +391,7 @@ server.registerTool(
       results: TrademarkResult[];
     };
     return {
-      content: [{ type: "text" as const, text: formatTrademarks(data) }],
+      content: [{ type: "text" as const, text: JSON.stringify(data) }],
     };
   }
 );
@@ -503,7 +410,7 @@ server.registerTool(
       results: AppStoreResult[];
     };
     return {
-      content: [{ type: "text" as const, text: formatAppStores(data) }],
+      content: [{ type: "text" as const, text: JSON.stringify(data) }],
     };
   }
 );
@@ -522,7 +429,7 @@ server.registerTool(
       results: SaasResult[];
     };
     return {
-      content: [{ type: "text" as const, text: formatSaas(data) }],
+      content: [{ type: "text" as const, text: JSON.stringify(data) }],
     };
   }
 );
@@ -541,7 +448,7 @@ server.registerTool(
       results: GoogleSearchResult[];
     };
     return {
-      content: [{ type: "text" as const, text: formatGoogle(data) }],
+      content: [{ type: "text" as const, text: JSON.stringify(data) }],
     };
   }
 );

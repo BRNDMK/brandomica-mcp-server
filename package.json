@@ -1,6 +1,6 @@
 {
   "name": "brandomica-mcp-server",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "MCP server exposing 12 tools for brand name verification — check domains, social handles, trademarks, app stores, SaaS channels, safety scoring, and filing readiness via structured JSON over stdio",
   "mcpName": "io.github.BRNDMK/brandomica-mcp-server",
   "type": "module",
@@ -18,7 +18,8 @@
   },
   "files": [
     "dist",
-    "manifest.json"
+    "manifest.json",
+    "icon.png"
   ],
   "scripts": {
     "build": "tsc",
